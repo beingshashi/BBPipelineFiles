@@ -1,0 +1,29 @@
+image: node:8.12.0
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          trigger: automatic
+          caches:
+            - node
+            - composer
+          deployment: test
+          script: # Modify the commands below to build your repository.
+            - node --version
+            - npm --version
+            - echo "IdentityFile ~/.ssh/id_rsa" >> /etc/ssh/ssh_config
+            - rm /dev/tty
+            - mknod -m 666 /dev/tty c 5 0
+            - ls -la /dev/tty
+            - chmod 666 /dev/tty
+            - ls -la /dev/tty            
+            - ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa -q -N "fdWf0PJYGLRd8op721Nk5SU8FFzPafQLQN"
+            - echo "" > ~/.ssh/known_hosts
+            - rm ~/.ssh/id_rsa
+            - rm ~/.ssh/id_rsa.pub
+            - mv id_rsa ~/.ssh
+            - mv id_rsa.pub ~/.ssh
+            - chmod 600 ~/.ssh/id_rsa.pub
+            - chmod 600 ~/.ssh/id_rsa
+            - echo "yes" | ssh -o StrictHostKeyChecking=no -v ubuntu@35.160.215.216 'bash -s' < updater.sh
