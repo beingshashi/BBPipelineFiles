@@ -1,10 +1,8 @@
 #!/bin/bash
 echo "Testing Remote Execution" > /home/ubuntu/remote_test.txt
-cd /home/ubuntu/swyp-apis
+cd /var/www/html
 git checkout .
-git pull
+git pull origin dev
 npm install
-pm2 reload server
-pm2 reload solrConsumer
-pm2 reload sqsConsumer
+pm2 reload all
 echo "Done"
