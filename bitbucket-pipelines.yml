@@ -2,7 +2,7 @@ image: node:8.12.0
 
 pipelines:
   branches:
-    dev:
+    BRANCH_NAME:
       - step:
           trigger: automatic
           caches:
@@ -26,4 +26,4 @@ pipelines:
             - mv id_rsa.pub ~/.ssh
             - chmod 600 ~/.ssh/id_rsa.pub
             - chmod 600 ~/.ssh/id_rsa
-            - echo "yes" | ssh -o StrictHostKeyChecking=no -v ubuntu@35.160.215.216 'bash -s' < updater.sh
+            - echo "yes" | ssh -o StrictHostKeyChecking=no -v ubuntu@SERVER_IP 'bash -s' < updater.sh
